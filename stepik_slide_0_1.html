@@ -11,8 +11,7 @@
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     background: #f4f9f9;
     color: #1E293B;
-    min-height: 100vh;
-    padding: 0;
+    padding-bottom: 32px;
   }
 
   /* ── HERO ── */
@@ -22,29 +21,26 @@
     position: relative;
     overflow: hidden;
   }
-
   .hero::before {
     content: '';
     position: absolute;
     top: -60px; right: -60px;
     width: 260px; height: 260px;
     border-radius: 50%;
-    background: rgba(20, 184, 166, 0.15);
+    background: rgba(20,184,166,0.15);
   }
-
   .hero::after {
     content: '';
     position: absolute;
     bottom: -80px; right: 40px;
     width: 180px; height: 180px;
     border-radius: 50%;
-    background: rgba(20, 184, 166, 0.08);
+    background: rgba(20,184,166,0.08);
   }
-
   .badge {
     display: inline-block;
-    background: rgba(20, 184, 166, 0.25);
-    border: 1px solid rgba(20, 184, 166, 0.5);
+    background: rgba(20,184,166,0.25);
+    border: 1px solid rgba(20,184,166,0.5);
     color: #CFE9E6;
     font-size: 11px;
     font-weight: 700;
@@ -54,22 +50,16 @@
     border-radius: 20px;
     margin-bottom: 16px;
   }
-
   .hero-title {
     font-size: 26px;
     font-weight: 800;
-    color: #ffffff;
+    color: #fff;
     line-height: 1.2;
     margin-bottom: 14px;
     position: relative;
     z-index: 1;
   }
-
-  .hero-title em {
-    font-style: normal;
-    color: #14B8A6;
-  }
-
+  .hero-title em { font-style: normal; color: #14B8A6; }
   .hero-subtitle {
     font-size: 14px;
     color: #CFE9E6;
@@ -81,7 +71,7 @@
 
   /* ── THESIS ── */
   .thesis {
-    background: #ffffff;
+    background: #fff;
     border-left: 4px solid #0E7C7B;
     margin: 24px 24px 0;
     padding: 16px 20px;
@@ -93,7 +83,7 @@
     box-shadow: 0 2px 8px rgba(14,124,123,0.08);
   }
 
-  /* ── PILLARS ── */
+  /* ── SECTION LABEL ── */
   .section-label {
     font-size: 10px;
     font-weight: 700;
@@ -103,62 +93,142 @@
     padding: 20px 24px 10px;
   }
 
-  .pillars {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  /* ── ACCORDION ── */
+  .accordion {
     padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .pillar {
-    background: #ffffff;
+  .acc-item {
+    background: #fff;
     border-radius: 12px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     border: 1px solid #E2F0EF;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    cursor: default;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+  }
+  .acc-item.open {
+    box-shadow: 0 4px 16px rgba(14,124,123,0.13);
+    border-color: #14B8A6;
   }
 
-  .pillar:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(14,124,123,0.12);
+  /* ── ACCORDION HEADER (кликабельная кнопка) ── */
+  .acc-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s ease;
   }
+  .acc-header:hover { background: #f0fafa; }
+  .acc-item.open .acc-header { background: #e8f7f6; }
 
-  .pillar-icon {
-    width: 36px; height: 36px;
+  .acc-icon {
+    width: 40px; height: 40px;
     background: #EEF6F5;
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 20px;
+    flex-shrink: 0;
+    transition: background 0.2s;
   }
+  .acc-item.open .acc-icon { background: #0E7C7B; }
 
-  .pillar-num {
+  .acc-header-text { flex: 1; }
+  .acc-num {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.5px;
     color: #0E7C7B;
     text-transform: uppercase;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
   }
-
-  .pillar-title {
-    font-size: 13.5px;
+  .acc-title {
+    font-size: 15px;
     font-weight: 700;
     color: #0B3D40;
-    margin-bottom: 5px;
+  }
+  .acc-preview {
+    font-size: 12px;
+    color: #64748B;
+    margin-top: 2px;
+    transition: opacity 0.2s;
+  }
+  .acc-item.open .acc-preview { opacity: 0; height: 0; margin: 0; overflow: hidden; }
+
+  .acc-arrow {
+    font-size: 18px;
+    color: #0E7C7B;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+  .acc-item.open .acc-arrow { transform: rotate(180deg); }
+
+  /* ── ACCORDION BODY (раскрывающийся контент) ── */
+  .acc-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.25s ease;
+  }
+  .acc-item.open .acc-body {
+    max-height: 600px;
   }
 
-  .pillar-desc {
-    font-size: 11.5px;
-    color: #64748B;
-    line-height: 1.55;
+  .acc-body-inner {
+    padding: 0 18px 18px;
+    border-top: 1px solid #E2F0EF;
+  }
+
+  .acc-desc {
+    font-size: 13.5px;
+    color: #334155;
+    line-height: 1.65;
+    margin-top: 14px;
+    margin-bottom: 12px;
+  }
+
+  /* Список пунктов внутри аккордеона */
+  .acc-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .acc-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 12.5px;
+    color: #475569;
+    line-height: 1.5;
+  }
+  .acc-points li::before {
+    content: '✓';
+    color: #0E7C7B;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Тег «что узнаете» */
+  .acc-tag {
+    display: inline-block;
+    background: #EEF6F5;
+    color: #0B4F4E;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 10px;
   }
 
   /* ── FOCUS NOTE ── */
   .focus-note {
-    margin: 20px 24px 28px;
+    margin: 20px 24px 0;
     background: #EEF6F5;
     border-radius: 10px;
     padding: 12px 16px;
@@ -166,31 +236,17 @@
     align-items: flex-start;
     gap: 10px;
   }
+  .focus-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .focus-text { font-size: 12.5px; color: #0B4F4E; line-height: 1.55; }
+  .focus-text strong { font-weight: 700; }
 
-  .focus-icon {
-    font-size: 16px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .focus-text {
-    font-size: 12.5px;
-    color: #0B4F4E;
-    line-height: 1.55;
-  }
-
-  .focus-text strong {
-    font-weight: 700;
-  }
-
-  /* ── RESPONSIVE ── */
   @media (max-width: 480px) {
-    .hero { padding: 28px 20px 24px; }
-    .hero-title { font-size: 21px; }
-    .thesis { margin: 16px 16px 0; }
-    .pillars { grid-template-columns: 1fr; padding: 0 16px; }
-    .section-label { padding: 16px 16px 8px; }
-    .focus-note { margin: 16px 16px 20px; }
+    .hero { padding: 28px 18px 24px; }
+    .hero-title { font-size: 20px; }
+    .thesis { margin: 16px 14px 0; }
+    .accordion { padding: 0 14px; }
+    .section-label { padding: 16px 14px 8px; }
+    .focus-note { margin: 16px 14px 0; }
   }
 </style>
 </head>
@@ -208,37 +264,132 @@
   Нейросети не ищут работу за вас — они усиливают то, что вы уже умеете показать. Этот курс разбирает 4 точки, где ИИ даёт реальное преимущество — и реальный риск, если довериться ему слепо.
 </div>
 
-<!-- PILLARS -->
-<div class="section-label">Что внутри курса</div>
+<!-- ACCORDION -->
+<div class="section-label">Нажмите на модуль, чтобы узнать подробнее</div>
 
-<div class="pillars">
+<div class="accordion">
 
-  <div class="pillar">
-    <div class="pillar-icon">📦</div>
-    <div class="pillar-num">Модуль 1</div>
-    <div class="pillar-title">Упаковка</div>
-    <div class="pillar-desc">Как сформулировать опыт убедительно — без преувеличений и без скромности, которая прячет результаты.</div>
+  <!-- Модуль 1 -->
+  <div class="acc-item" onclick="toggle(this)">
+    <div class="acc-header">
+      <div class="acc-icon">📦</div>
+      <div class="acc-header-text">
+        <div class="acc-num">Модуль 1</div>
+        <div class="acc-title">Упаковка</div>
+        <div class="acc-preview">Как сформулировать опыт убедительно</div>
+      </div>
+      <div class="acc-arrow">▾</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-body-inner">
+        <p class="acc-desc">Большинство резюме описывают обязанности, а не результаты. Рекрутёр видит «занимался продажами» вместо «привлёк 120 клиентов за квартал с конверсией 18%». В этом модуле вы научитесь находить цифры даже там, где кажется, их нет, и переформулировать любой пункт резюме по рабочей формуле.</p>
+        <ul class="acc-points">
+          <li>Формула достижения: действие + инструмент + результат в цифрах</li>
+          <li>Где брать цифры, если их «не было»: 4 источника</li>
+          <li>Как ИИ помогает написать блок «О себе» за 10 минут</li>
+          <li>Кейс: одно резюме целиком — до и после</li>
+        </ul>
+        <span class="acc-tag">7 уроков · ~8 минут</span>
+      </div>
+    </div>
   </div>
 
-  <div class="pillar">
-    <div class="pillar-icon">👁</div>
-    <div class="pillar-num">Модуль 2</div>
-    <div class="pillar-title">Видимость</div>
-    <div class="pillar-desc">Как сделать так, чтобы вас находили рекрутёры и алгоритмы hh.ru и LinkedIn раньше, чем резюме увидит человек.</div>
+  <!-- Модуль 2 -->
+  <div class="acc-item" onclick="toggle(this)">
+    <div class="acc-header">
+      <div class="acc-icon">👁</div>
+      <div class="acc-header-text">
+        <div class="acc-num">Модуль 2</div>
+        <div class="acc-title">Видимость</div>
+        <div class="acc-preview">Как вас находят рекрутёры и алгоритмы</div>
+      </div>
+      <div class="acc-arrow">▾</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-body-inner">
+        <p class="acc-desc">Прежде чем резюме увидит человек, его читает система. На hh.ru — поисковый алгоритм по ключевым словам. На LinkedIn — ИИ-агент Hiring Assistant. Этот модуль объясняет, как именно работает каждая из систем и что нужно сделать конкретно, чтобы попасть в верхние строчки выдачи.</p>
+        <ul class="acc-points">
+          <li>Как работает умный поиск hh.ru: синонимы, поля, обучение на действиях</li>
+          <li>Что такое Knowledge Graph и Hiring Assistant в LinkedIn</li>
+          <li>Три незаметные ошибки, которые убивают видимость профиля</li>
+          <li>Как адаптировать резюме под конкретную вакансию с помощью ИИ</li>
+        </ul>
+        <span class="acc-tag">7 уроков · ~8 минут</span>
+      </div>
+    </div>
   </div>
 
-  <div class="pillar">
-    <div class="pillar-icon">🎯</div>
-    <div class="pillar-num">Модуль 3–4</div>
-    <div class="pillar-title">Подготовка</div>
-    <div class="pillar-desc">Как тренировать интервью без живого собеседника и получать честную обратную связь.</div>
+  <!-- Модуль 3 -->
+  <div class="acc-item" onclick="toggle(this)">
+    <div class="acc-header">
+      <div class="acc-icon">🔍</div>
+      <div class="acc-header-text">
+        <div class="acc-num">Модуль 3</div>
+        <div class="acc-title">Поиск и нетворкинг</div>
+        <div class="acc-preview">Как читать вакансии и писать рекрутёрам</div>
+      </div>
+      <div class="acc-arrow">▾</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-body-inner">
+        <p class="acc-desc">ИИ помогает читать вакансию «между строк» — что скрывается за «многозадачностью» и «самостоятельностью». А ещё — писать живые, персонализированные сообщения рекрутёрам вместо шаблонных откликов, которые считываются за секунду.</p>
+        <ul class="acc-points">
+          <li>Разбор реального текста вакансии: что означает каждая формулировка</li>
+          <li>Три сценария нетворкинга: холодный контакт, реферал, Telegram-сообщество</li>
+          <li>Почему 15 точечных откликов лучше 200 шаблонных</li>
+        </ul>
+        <span class="acc-tag">4 урока · ~5 минут</span>
+      </div>
+    </div>
   </div>
 
-  <div class="pillar">
-    <div class="pillar-icon">🛡</div>
-    <div class="pillar-num">Модуль 5</div>
-    <div class="pillar-title">Доверие</div>
-    <div class="pillar-desc">Где граница между «ИИ помог» и «ИИ обманул рекрутёра» — и почему вторая стратегия проигрывает на собеседовании.</div>
+  <!-- Модуль 4 -->
+  <div class="acc-item" onclick="toggle(this)">
+    <div class="acc-header">
+      <div class="acc-icon">🎯</div>
+      <div class="acc-header-text">
+        <div class="acc-num">Модуль 4</div>
+        <div class="acc-title">Подготовка к интервью</div>
+        <div class="acc-preview">Тренажёр на нейросетях вместо гадания</div>
+      </div>
+      <div class="acc-arrow">▾</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-body-inner">
+        <p class="acc-desc">Главная проблема подготовки — не нехватка информации, а отсутствие обратной связи. Компании не объясняют отказ. ИИ даёт построчный разбор каждого ответа — и показывает разницу между «как я думаю, я ответил» и «как это прозвучало со стороны».</p>
+        <ul class="acc-points">
+          <li>Почему именно STAR работает: критерии оценки интервьюера изнутри</li>
+          <li>Три режима тренировки: исследование → банк историй → мок-интервью</li>
+          <li>Частая ошибка: комфортная тренировка вместо честной</li>
+          <li>Два реальных кейса людей, которые получили оффер</li>
+        </ul>
+        <span class="acc-tag">5 уроков · ~7 минут</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модуль 5 -->
+  <div class="acc-item" onclick="toggle(this)">
+    <div class="acc-header">
+      <div class="acc-icon">🛡</div>
+      <div class="acc-header-text">
+        <div class="acc-num">Модуль 5</div>
+        <div class="acc-title">Риски и этика</div>
+        <div class="acc-preview">Где ИИ становится опасен</div>
+      </div>
+      <div class="acc-arrow">▾</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-body-inner">
+        <p class="acc-desc">Чем больше кандидатов используют ИИ для «идеальных» резюме, тем менее эффективна эта стратегия для каждого из них. У рекрутёров появился «ИИ-радар». В этом модуле разберём механику — и три красные линии, которые не стоит пересекать.</p>
+        <ul class="acc-points">
+          <li>Как работает «ИИ-радар» рекрутёра: паттерны, которые считываются</li>
+          <li>Три красные линии: выдуманные факты, пустые сертификаты, персданные</li>
+          <li>Почему финальную правку должен делать человек, а не нейросеть</li>
+        </ul>
+        <span class="acc-tag">4 урока · ~5 минут</span>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -250,6 +401,16 @@
     <strong>Фокус курса — российский рынок и hh.ru.</strong> LinkedIn разбирается там, где это уместно — для тех, кто рассматривает международные или продуктовые компании.
   </p>
 </div>
+
+<script>
+  function toggle(item) {
+    const isOpen = item.classList.contains('open');
+    // Закрыть все открытые
+    document.querySelectorAll('.acc-item.open').forEach(el => el.classList.remove('open'));
+    // Открыть кликнутый (если он не был открыт)
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
 
 </body>
 </html>
