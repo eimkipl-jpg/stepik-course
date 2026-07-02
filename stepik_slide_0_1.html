@@ -3,414 +3,936 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>О чём этот курс</title>
+<title>Нейросети для личного бренда и поиска работы</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Arial',sans-serif;background:#f9f9f7;color:#1a1a1a;font-size:14px}
 
-  body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: #f4f9f9;
-    color: #1E293B;
-    padding-bottom: 32px;
-  }
+/* NAV */
+.nav{display:flex;border-bottom:3px solid #1a1a1a;background:#fff;position:sticky;top:0;z-index:100;overflow-x:auto}
+.nav-btn{flex:1;min-width:80px;padding:10px 4px;font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;border:none;background:transparent;cursor:pointer;border-right:1px solid #e0e0e0;color:#666;transition:all 0.2s;white-space:nowrap}
+.nav-btn:last-child{border-right:none}
+.nav-btn.active{background:#1a1a1a;color:#fff}
+.nav-btn:hover:not(.active){background:#f0f0ee}
 
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(135deg, #0B3D40 0%, #0E7C7B 100%);
-    padding: 40px 32px 36px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 260px; height: 260px;
-    border-radius: 50%;
-    background: rgba(20,184,166,0.15);
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -80px; right: 40px;
-    width: 180px; height: 180px;
-    border-radius: 50%;
-    background: rgba(20,184,166,0.08);
-  }
-  .badge {
-    display: inline-block;
-    background: rgba(20,184,166,0.25);
-    border: 1px solid rgba(20,184,166,0.5);
-    color: #CFE9E6;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-  }
-  .hero-title {
-    font-size: 26px;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.2;
-    margin-bottom: 14px;
-    position: relative;
-    z-index: 1;
-  }
-  .hero-title em { font-style: normal; color: #14B8A6; }
-  .hero-subtitle {
-    font-size: 14px;
-    color: #CFE9E6;
-    line-height: 1.6;
-    max-width: 520px;
-    position: relative;
-    z-index: 1;
-  }
+/* SCREENS */
+.screen{display:none;animation:fadeIn 0.3s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-  /* ── THESIS ── */
-  .thesis {
-    background: #fff;
-    border-left: 4px solid #0E7C7B;
-    margin: 24px 24px 0;
-    padding: 16px 20px;
-    border-radius: 0 8px 8px 0;
-    font-size: 15px;
-    font-weight: 700;
-    color: #0B4F4E;
-    line-height: 1.5;
-    box-shadow: 0 2px 8px rgba(14,124,123,0.08);
-  }
+/* MASTHEAD */
+.masthead{background:#1a1a1a;padding:28px 24px 22px;position:relative;overflow:hidden}
+.masthead-rule{height:4px;background:#fff;margin-bottom:3px}
+.masthead-rule2{height:1px;background:rgba(255,255,255,0.25);margin-bottom:18px}
+.masthead-eye{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:10px}
+.masthead-title{font-size:26px;font-weight:900;color:#fff;line-height:1.05;text-transform:uppercase;margin-bottom:8px;position:relative;z-index:1}
+.masthead-title em{font-style:normal;border-bottom:3px solid #fff}
+.masthead-sub{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:460px;position:relative;z-index:1}
+.masthead-deco{position:absolute;right:16px;top:16px;font-size:70px;font-weight:900;color:rgba(255,255,255,0.04);line-height:1;user-select:none}
 
-  /* ── SECTION LABEL ── */
-  .section-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #64748B;
-    padding: 20px 24px 10px;
-  }
+/* MODULE DIVIDER */
+.mod-divider{background:#1a1a1a;color:#fff;padding:10px 20px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.mod-divider span{opacity:0.45}
 
-  /* ── ACCORDION ── */
-  .accordion {
-    padding: 0 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+/* SECTION */
+.ed-section{padding:16px 20px 0;border-bottom:2px solid #1a1a1a}
+.ed-section-label{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#999;margin-bottom:12px}
 
-  .acc-item {
-    background: #fff;
-    border-radius: 12px;
-    border: 1px solid #E2F0EF;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    overflow: hidden;
-    transition: box-shadow 0.2s ease;
-  }
-  .acc-item.open {
-    box-shadow: 0 4px 16px rgba(14,124,123,0.13);
-    border-color: #14B8A6;
-  }
+/* BIG NUMBERS GRID */
+.nums-grid{display:grid;grid-template-columns:1fr 1px 1fr;background:#fff;border:1px solid #ddd;margin:0 20px 16px}
+.nums-divider{background:#ddd}
+.nums-col{padding:14px 16px}
+.big-num{font-size:48px;font-weight:900;color:#1a1a1a;line-height:1;margin-bottom:2px;overflow:hidden}
+.big-num .inner{display:block;transform:translateY(100%);transition:transform 0.7s cubic-bezier(0.22,1,0.36,1)}
+.big-num.revealed .inner{transform:translateY(0)}
+.big-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#999;margin-bottom:8px}
+.nums-body{font-size:12px;color:#444;line-height:1.65}
+.ed-tag{display:inline-block;background:#1a1a1a;color:#fff;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;margin-top:8px}
+.ed-tag.inv{background:transparent;color:#1a1a1a;border:1.5px solid #1a1a1a}
 
-  /* ── ACCORDION HEADER (кликабельная кнопка) ── */
-  .acc-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 18px;
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.15s ease;
-  }
-  .acc-header:hover { background: #f0fafa; }
-  .acc-item.open .acc-header { background: #e8f7f6; }
+/* INTRO PILLARS */
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 20px 20px}
+.pillar{border:1px solid #ddd;padding:12px 14px;background:#fff}
+.pillar-num{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#999;margin-bottom:4px}
+.pillar-title{font-size:13px;font-weight:900;text-transform:uppercase;margin-bottom:5px}
+.pillar-desc{font-size:11.5px;color:#555;line-height:1.55}
 
-  .acc-icon {
-    width: 40px; height: 40px;
-    background: #EEF6F5;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-    transition: background 0.2s;
-  }
-  .acc-item.open .acc-icon { background: #0E7C7B; }
+/* ACCORDION MODULES */
+.mod-list{padding:0 20px 20px}
+.acc{border:1px solid #ddd;border-top:none;background:#fff;overflow:hidden}
+.acc:first-child{border-top:1px solid #ddd}
+.acc.open{border-color:#1a1a1a}
+.acc-head{display:flex;align-items:center;padding:12px 14px;gap:10px;cursor:pointer;user-select:none}
+.acc-head:hover{background:#f5f5f3}
+.acc.open .acc-head{background:#f9f9f7}
+.acc-num{font-size:10px;font-weight:900;color:#bbb;letter-spacing:1px;min-width:26px}
+.acc.open .acc-num{color:#1a1a1a}
+.acc-title{font-size:13px;font-weight:700;flex:1;text-transform:uppercase;letter-spacing:0.3px}
+.acc-meta{font-size:9px;color:#bbb;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.acc-arr{font-size:12px;color:#bbb;transition:transform 0.25s}
+.acc.open .acc-arr{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height 0.38s ease}
+.acc.open .acc-body{max-height:600px}
+.acc-inner{padding:0 14px 14px;border-top:1px solid #eee}
+.acc-desc{font-size:12px;color:#444;line-height:1.65;margin-top:10px;margin-bottom:8px}
+.acc-pts{list-style:none}
+.acc-pts li{font-size:11.5px;color:#444;padding:4px 0;border-bottom:0.5px solid #eee;display:flex;gap:8px;line-height:1.45}
+.acc-pts li::before{content:'—';color:#999;flex-shrink:0}
+.acc-pts li:last-child{border-bottom:none}
 
-  .acc-header-text { flex: 1; }
-  .acc-num {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: #0E7C7B;
-    text-transform: uppercase;
-    margin-bottom: 2px;
-  }
-  .acc-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #0B3D40;
-  }
-  .acc-preview {
-    font-size: 12px;
-    color: #64748B;
-    margin-top: 2px;
-    transition: opacity 0.2s;
-  }
-  .acc-item.open .acc-preview { opacity: 0; height: 0; margin: 0; overflow: hidden; }
+/* SLIDE CARDS */
+.slides-wrap{padding:16px 20px}
+.slide-card{background:#fff;border:1px solid #ddd;margin-bottom:10px}
+.slide-head{border-bottom:3px solid #1a1a1a;padding:12px 14px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.slide-kicker{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#999;flex-shrink:0}
+.slide-title{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:0.3px;line-height:1.25}
+.slide-body{padding:14px}
+.slide-body p{font-size:12.5px;color:#333;line-height:1.7;margin-bottom:9px}
+.slide-body p:last-child{margin-bottom:0}
 
-  .acc-arrow {
-    font-size: 18px;
-    color: #0E7C7B;
-    transition: transform 0.25s ease;
-    flex-shrink: 0;
-  }
-  .acc-item.open .acc-arrow { transform: rotate(180deg); }
+/* VS TABLE */
+.vs-wrap{display:grid;grid-template-columns:1fr 1fr;border:1px solid #ddd;margin:10px 0}
+.vs-col{padding:10px 12px}
+.vs-col+.vs-col{border-left:1px solid #ddd}
+.vs-head{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
+.vs-head.bad{color:#c0392b}
+.vs-head.good{color:#27ae60}
+.vs-item{font-size:11px;color:#333;padding:4px 0;border-bottom:0.5px solid #eee;line-height:1.4}
+.vs-item:last-child{border-bottom:none}
 
-  /* ── ACCORDION BODY (раскрывающийся контент) ── */
-  .acc-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease, padding 0.25s ease;
-  }
-  .acc-item.open .acc-body {
-    max-height: 600px;
-  }
+/* FACT ROW */
+.fact-row{display:flex;gap:8px;margin:10px 0}
+.fact-box{flex:1;border:1px solid #ddd;padding:10px;text-align:center}
+.fact-big{font-size:28px;font-weight:900;color:#1a1a1a;line-height:1}
+.fact-small{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#999;margin-top:3px}
 
-  .acc-body-inner {
-    padding: 0 18px 18px;
-    border-top: 1px solid #E2F0EF;
-  }
+/* PROMPT BOX */
+.prompt-box{background:#1a1a1a;color:#fff;padding:10px 12px;margin:9px 0;font-size:11px;line-height:1.65;font-family:monospace}
+.prompt-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:5px;font-family:Arial,sans-serif;font-weight:700}
 
-  .acc-desc {
-    font-size: 13.5px;
-    color: #334155;
-    line-height: 1.65;
-    margin-top: 14px;
-    margin-bottom: 12px;
-  }
+/* TIPS GRID */
+.tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:9px 0}
+.tip{border-left:3px solid #1a1a1a;padding:7px 9px;background:#f9f9f7}
+.tip-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:3px}
+.tip-d{font-size:11px;color:#555;line-height:1.5}
 
-  /* Список пунктов внутри аккордеона */
-  .acc-points {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .acc-points li {
-    display: flex;
-    align-items: flex-start;
-    gap: 9px;
-    font-size: 12.5px;
-    color: #475569;
-    line-height: 1.5;
-  }
-  .acc-points li::before {
-    content: '✓';
-    color: #0E7C7B;
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
+/* STEP LIST */
+.step-list{list-style:none;margin:9px 0}
+.step-list li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid #eee}
+.step-list li:last-child{border-bottom:none}
+.step-n{width:22px;height:22px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:12px;color:#333;line-height:1.55}
 
-  /* Тег «что узнаете» */
-  .acc-tag {
-    display: inline-block;
-    background: #EEF6F5;
-    color: #0B4F4E;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-top: 10px;
-  }
+/* CASE BOX */
+.case-box{border:1px solid #ddd;margin:8px 0;overflow:hidden}
+.case-head{background:#1a1a1a;color:#fff;padding:7px 12px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.case-body{padding:10px 12px;font-size:12px;color:#333;line-height:1.65}
 
-  /* ── FOCUS NOTE ── */
-  .focus-note {
-    margin: 20px 24px 0;
-    background: #EEF6F5;
-    border-radius: 10px;
-    padding: 12px 16px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .focus-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .focus-text { font-size: 12.5px; color: #0B4F4E; line-height: 1.55; }
-  .focus-text strong { font-weight: 700; }
+/* WARN BOX */
+.warn-box{border-left:4px solid #c0392b;background:#fff9f8;padding:9px 12px;margin:9px 0;font-size:12px;color:#333;line-height:1.6}
 
-  @media (max-width: 480px) {
-    .hero { padding: 28px 18px 24px; }
-    .hero-title { font-size: 20px; }
-    .thesis { margin: 16px 14px 0; }
-    .accordion { padding: 0 14px; }
-    .section-label { padding: 16px 14px 8px; }
-    .focus-note { margin: 16px 14px 0; }
-  }
+/* PRINCIPLE */
+.principle{background:#1a1a1a;color:#fff;padding:16px 18px;margin:9px 0}
+.principle-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:8px}
+.principle-body{font-size:13px;line-height:1.65;font-weight:700}
+.principle-pts{list-style:none;margin-top:10px}
+.principle-pts li{font-size:12px;color:rgba(255,255,255,0.75);padding:5px 0;border-bottom:0.5px solid rgba(255,255,255,0.12);display:flex;gap:8px;line-height:1.5}
+.principle-pts li::before{content:'→';color:#888;flex-shrink:0}
+.principle-pts li:last-child{border-bottom:none}
+
+/* QUIZ */
+.quiz-wrap{padding:16px 20px}
+.progress-bar{height:3px;background:#eee;margin-bottom:14px}
+.progress-fill{height:100%;background:#1a1a1a;transition:width 0.3s ease}
+.quiz-score{background:#1a1a1a;color:#fff;text-align:center;padding:18px;margin-bottom:14px;display:none}
+.quiz-score.show{display:block}
+.score-num{font-size:44px;font-weight:900;line-height:1}
+.score-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:3px}
+.score-msg{font-size:12px;color:rgba(255,255,255,0.75);margin-top:8px;line-height:1.5}
+.reset-btn{margin-top:10px;padding:9px 20px;background:#fff;color:#1a1a1a;border:none;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer}
+.quiz-card{background:#fff;border:1px solid #ddd;margin-bottom:10px;overflow:hidden}
+.quiz-head{background:#f0f0ee;padding:9px 14px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#666;display:flex;justify-content:space-between}
+.quiz-q{padding:12px 14px 8px;font-size:13px;font-weight:700;line-height:1.4;color:#1a1a1a}
+.quiz-opts{padding:0 14px 12px}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border:1px solid #eee;margin-bottom:5px;cursor:pointer;transition:all 0.15s}
+.opt:last-child{margin-bottom:0}
+.opt:hover{border-color:#1a1a1a;background:#f9f9f7}
+.opt.correct{background:#e8f5e9;border-color:#27ae60}
+.opt.wrong{background:#ffebee;border-color:#c0392b}
+.opt-letter{width:20px;height:20px;background:#f0f0ee;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.15s}
+.opt.correct .opt-letter{background:#27ae60;color:#fff}
+.opt.wrong .opt-letter{background:#c0392b;color:#fff}
+.opt-text{font-size:12px;color:#333;line-height:1.5;padding-top:2px}
+.quiz-exp{padding:10px 14px 12px;font-size:11.5px;color:#555;line-height:1.6;border-top:1px solid #eee;display:none}
+.quiz-exp.show{display:block}
+
+@media(max-width:480px){
+  .masthead-title{font-size:20px}
+  .pillars,.nums-grid,.vs-wrap,.fact-row,.tip-grid{grid-template-columns:1fr}
+  .nums-divider{display:none}
+  .vs-col+.vs-col,.fact-row .fact-box+.fact-box{border-left:none;border-top:1px solid #ddd}
+  .big-num{font-size:38px}
+}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="badge">Введение · Урок 1</div>
-  <h1 class="hero-title">Нейросети для<br><em>личного бренда</em><br>и поиска работы</h1>
-  <p class="hero-subtitle">Практический гид для российского соискателя: hh.ru, LinkedIn и ИИ-инструменты на каждом шаге поиска.</p>
+<!-- NAV -->
+<div class="nav">
+  <button class="nav-btn active" onclick="go(0)">Введение</button>
+  <button class="nav-btn" onclick="go(1)">Модуль 1</button>
+  <button class="nav-btn" onclick="go(2)">Модуль 2</button>
+  <button class="nav-btn" onclick="go(3)">Модуль 3</button>
+  <button class="nav-btn" onclick="go(4)">Модуль 4</button>
+  <button class="nav-btn" onclick="go(5)">Модуль 5</button>
+  <button class="nav-btn" onclick="go(6)">Тесты</button>
 </div>
 
-<!-- THESIS -->
-<div class="thesis">
-  Нейросети не ищут работу за вас — они усиливают то, что вы уже умеете показать. Этот курс разбирает 4 точки, где ИИ даёт реальное преимущество — и реальный риск, если довериться ему слепо.
-</div>
+<!-- ══════════════════════════════════
+     SCREEN 0 — ВВЕДЕНИЕ (Слайд 0.1)
+══════════════════════════════════ -->
+<div class="screen active" id="s0">
 
-<!-- ACCORDION -->
-<div class="section-label">Нажмите на модуль, чтобы узнать подробнее</div>
+  <div class="masthead">
+    <div class="masthead-deco">ИИ</div>
+    <div class="masthead-eye">Мини-курс для российского соискателя · ~35 минут</div>
+    <div class="masthead-rule"></div>
+    <div class="masthead-rule2"></div>
+    <div class="masthead-title">Нейросети для<br><em>личного бренда</em><br>и поиска работы</div>
+    <div class="masthead-sub">Этот курс не учит «что такое ChatGPT» — он разбирает 4 точки поиска работы, где ИИ даёт реальное преимущество, если использовать его правильно, и реальный риск, если довериться ему слепо.</div>
+  </div>
 
-<div class="accordion">
-
-  <!-- Модуль 1 -->
-  <div class="acc-item" onclick="toggle(this)">
-    <div class="acc-header">
-      <div class="acc-icon">📦</div>
-      <div class="acc-header-text">
-        <div class="acc-num">Модуль 1</div>
-        <div class="acc-title">Упаковка</div>
-        <div class="acc-preview">Как сформулировать опыт убедительно</div>
-      </div>
-      <div class="acc-arrow">▾</div>
+  <div class="ed-section">
+    <div class="ed-section-label">4 точки, где решается исход поиска</div>
+  </div>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">Точка 1</div>
+      <div class="pillar-title">Упаковка</div>
+      <div class="pillar-desc">Как сформулировать свой опыт, чтобы он звучал убедительно.</div>
     </div>
-    <div class="acc-body">
-      <div class="acc-body-inner">
-        <p class="acc-desc">Большинство резюме описывают обязанности, а не результаты. Рекрутёр видит «занимался продажами» вместо «привлёк 120 клиентов за квартал с конверсией 18%». В этом модуле вы научитесь находить цифры даже там, где кажется, их нет, и переформулировать любой пункт резюме по рабочей формуле.</p>
-        <ul class="acc-points">
-          <li>Формула достижения: действие + инструмент + результат в цифрах</li>
-          <li>Где брать цифры, если их «не было»: 4 источника</li>
-          <li>Как ИИ помогает написать блок «О себе» за 10 минут</li>
-          <li>Кейс: одно резюме целиком — до и после</li>
-        </ul>
-        <span class="acc-tag">7 уроков · ~8 минут</span>
-      </div>
+    <div class="pillar">
+      <div class="pillar-num">Точка 2</div>
+      <div class="pillar-title">Видимость</div>
+      <div class="pillar-desc">Как сделать так, чтобы вас находили рекрутёры и алгоритмы hh.ru и LinkedIn.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Точка 3</div>
+      <div class="pillar-title">Подготовка</div>
+      <div class="pillar-desc">Как тренировать интервью без живого собеседника.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Точка 4</div>
+      <div class="pillar-title">Доверие</div>
+      <div class="pillar-desc">Где проходит граница между «ИИ помог» и «ИИ обманул рекрутёра».</div>
     </div>
   </div>
 
-  <!-- Модуль 2 -->
-  <div class="acc-item" onclick="toggle(this)">
-    <div class="acc-header">
-      <div class="acc-icon">👁</div>
-      <div class="acc-header-text">
-        <div class="acc-num">Модуль 2</div>
-        <div class="acc-title">Видимость</div>
-        <div class="acc-preview">Как вас находят рекрутёры и алгоритмы</div>
-      </div>
-      <div class="acc-arrow">▾</div>
-    </div>
-    <div class="acc-body">
-      <div class="acc-body-inner">
-        <p class="acc-desc">Прежде чем резюме увидит человек, его читает система. На hh.ru — поисковый алгоритм по ключевым словам. На LinkedIn — ИИ-агент Hiring Assistant. Этот модуль объясняет, как именно работает каждая из систем и что нужно сделать конкретно, чтобы попасть в верхние строчки выдачи.</p>
-        <ul class="acc-points">
-          <li>Как работает умный поиск hh.ru: синонимы, поля, обучение на действиях</li>
-          <li>Что такое Knowledge Graph и Hiring Assistant в LinkedIn</li>
-          <li>Три незаметные ошибки, которые убивают видимость профиля</li>
-          <li>Как адаптировать резюме под конкретную вакансию с помощью ИИ</li>
-        </ul>
-        <span class="acc-tag">7 уроков · ~8 минут</span>
-      </div>
-    </div>
+  <div class="ed-section" style="padding-bottom:14px">
+    <div class="ed-section-label">Программа курса — нажмите модуль, чтобы раскрыть</div>
   </div>
-
-  <!-- Модуль 3 -->
-  <div class="acc-item" onclick="toggle(this)">
-    <div class="acc-header">
-      <div class="acc-icon">🔍</div>
-      <div class="acc-header-text">
-        <div class="acc-num">Модуль 3</div>
-        <div class="acc-title">Поиск и нетворкинг</div>
-        <div class="acc-preview">Как читать вакансии и писать рекрутёрам</div>
-      </div>
-      <div class="acc-arrow">▾</div>
-    </div>
-    <div class="acc-body">
-      <div class="acc-body-inner">
-        <p class="acc-desc">ИИ помогает читать вакансию «между строк» — что скрывается за «многозадачностью» и «самостоятельностью». А ещё — писать живые, персонализированные сообщения рекрутёрам вместо шаблонных откликов, которые считываются за секунду.</p>
-        <ul class="acc-points">
-          <li>Разбор реального текста вакансии: что означает каждая формулировка</li>
-          <li>Три сценария нетворкинга: холодный контакт, реферал, Telegram-сообщество</li>
-          <li>Почему 15 точечных откликов лучше 200 шаблонных</li>
+  <div class="mod-list">
+    <div class="acc open" onclick="togAcc(this)">
+      <div class="acc-head"><span class="acc-num">01</span><span class="acc-title">Личный бренд: как ИИ упаковывает ваш опыт</span><span class="acc-meta">7 слайдов</span><span class="acc-arr">▾</span></div>
+      <div class="acc-body"><div class="acc-inner">
+        <p class="acc-desc">Личный бренд — это не самопиар, а навигация. Разберём, почему у рекрутёра есть только секунды, как превращать обязанности в достижения и что делать, если цифр нет.</p>
+        <ul class="acc-pts">
+          <li>F-образная траектория взгляда рекрутёра</li>
+          <li>Формула: действие + инструмент + результат в цифрах</li>
+          <li>4 источника цифр, когда «я не считал»</li>
+          <li>Блок «О себе» как мини-интервью</li>
+          <li>Сертификаты: Яндекс, Сбер, ЦБ РФ vs неизвестный сайт</li>
+          <li>Кейс: одно резюме целиком, до и после</li>
         </ul>
-        <span class="acc-tag">4 урока · ~5 минут</span>
-      </div>
+      </div></div>
     </div>
-  </div>
-
-  <!-- Модуль 4 -->
-  <div class="acc-item" onclick="toggle(this)">
-    <div class="acc-header">
-      <div class="acc-icon">🎯</div>
-      <div class="acc-header-text">
-        <div class="acc-num">Модуль 4</div>
-        <div class="acc-title">Подготовка к интервью</div>
-        <div class="acc-preview">Тренажёр на нейросетях вместо гадания</div>
-      </div>
-      <div class="acc-arrow">▾</div>
+    <div class="acc" onclick="togAcc(this)">
+      <div class="acc-head"><span class="acc-num">02</span><span class="acc-title">Резюме и профили: видимость на hh.ru и LinkedIn</span><span class="acc-meta">7 слайдов</span><span class="acc-arr">▾</span></div>
+      <div class="acc-body"><div class="acc-inner">
+        <p class="acc-desc">Прежде чем резюме увидит рекрутёр, его читает алгоритм. Разберём механику hh.ru и LinkedIn — и три незаметные ошибки, которые убивают видимость.</p>
+        <ul class="acc-pts">
+          <li>Как работает умный поиск hh.ru: синонимы, поля, обучение</li>
+          <li>Чек-лист сильного профиля на hh.ru</li>
+          <li>Адаптация резюме под вакансию с ИИ</li>
+          <li>LinkedIn All-Star и Knowledge Graph</li>
+          <li>Hiring Assistant: что это и почему меняет правила</li>
+          <li>Три незаметные ошибки видимости</li>
+        </ul>
+      </div></div>
     </div>
-    <div class="acc-body">
-      <div class="acc-body-inner">
-        <p class="acc-desc">Главная проблема подготовки — не нехватка информации, а отсутствие обратной связи. Компании не объясняют отказ. ИИ даёт построчный разбор каждого ответа — и показывает разницу между «как я думаю, я ответил» и «как это прозвучало со стороны».</p>
-        <ul class="acc-points">
-          <li>Почему именно STAR работает: критерии оценки интервьюера изнутри</li>
-          <li>Три режима тренировки: исследование → банк историй → мок-интервью</li>
+    <div class="acc" onclick="togAcc(this)">
+      <div class="acc-head"><span class="acc-num">03</span><span class="acc-title">Поиск вакансий и нетворкинг с ИИ</span><span class="acc-meta">4 слайда</span><span class="acc-arr">▾</span></div>
+      <div class="acc-body"><div class="acc-inner">
+        <p class="acc-desc">ИИ как фильтр, а не кнопка массовой рассылки. Как читать вакансию между строк и писать живые сообщения рекрутёрам.</p>
+        <ul class="acc-pts">
+          <li>Разбор реальной вакансии: что стоит за «многозадачностью»</li>
+          <li>Три сценария нетворкинга: холодный, реферал, Telegram</li>
+          <li>Почему 15 откликов лучше 200 шаблонных</li>
+        </ul>
+      </div></div>
+    </div>
+    <div class="acc" onclick="togAcc(this)">
+      <div class="acc-head"><span class="acc-num">04</span><span class="acc-title">Подготовка к интервью: тренажёр на нейросетях</span><span class="acc-meta">5 слайдов</span><span class="acc-arr">▾</span></div>
+      <div class="acc-body"><div class="acc-inner">
+        <p class="acc-desc">Главная проблема подготовки — отсутствие обратной связи. ИИ показывает разницу между «как я думаю, я ответил» и «как это прозвучало».</p>
+        <ul class="acc-pts">
+          <li>Почему именно STAR, а не просто «расскажите историю»</li>
+          <li>Три режима тренировки по нарастающей сложности</li>
           <li>Частая ошибка: комфортная тренировка вместо честной</li>
-          <li>Два реальных кейса людей, которые получили оффер</li>
+          <li>Два реальных кейса получивших оффер</li>
         </ul>
-        <span class="acc-tag">5 уроков · ~7 минут</span>
-      </div>
+      </div></div>
     </div>
-  </div>
-
-  <!-- Модуль 5 -->
-  <div class="acc-item" onclick="toggle(this)">
-    <div class="acc-header">
-      <div class="acc-icon">🛡</div>
-      <div class="acc-header-text">
-        <div class="acc-num">Модуль 5</div>
-        <div class="acc-title">Риски и этика</div>
-        <div class="acc-preview">Где ИИ становится опасен</div>
-      </div>
-      <div class="acc-arrow">▾</div>
-    </div>
-    <div class="acc-body">
-      <div class="acc-body-inner">
-        <p class="acc-desc">Чем больше кандидатов используют ИИ для «идеальных» резюме, тем менее эффективна эта стратегия для каждого из них. У рекрутёров появился «ИИ-радар». В этом модуле разберём механику — и три красные линии, которые не стоит пересекать.</p>
-        <ul class="acc-points">
-          <li>Как работает «ИИ-радар» рекрутёра: паттерны, которые считываются</li>
-          <li>Три красные линии: выдуманные факты, пустые сертификаты, персданные</li>
-          <li>Почему финальную правку должен делать человек, а не нейросеть</li>
+    <div class="acc" onclick="togAcc(this)">
+      <div class="acc-head"><span class="acc-num">05</span><span class="acc-title">Риски и этика: где ИИ становится опасен</span><span class="acc-meta">4 слайда</span><span class="acc-arr">▾</span></div>
+      <div class="acc-body"><div class="acc-inner">
+        <p class="acc-desc">Чем больше кандидатов используют ИИ для «идеальных» резюме, тем хуже это работает для каждого. Три красные линии и главный принцип курса.</p>
+        <ul class="acc-pts">
+          <li>Механика «ИИ-радара» рекрутёра</li>
+          <li>Выдуманные факты, пустые сертификаты, персданные</li>
+          <li>Финальная правка — только человек, не нейросеть</li>
         </ul>
-        <span class="acc-tag">4 урока · ~5 минут</span>
-      </div>
+      </div></div>
     </div>
   </div>
 
 </div>
 
-<!-- FOCUS NOTE -->
-<div class="focus-note">
-  <span class="focus-icon">🇷🇺</span>
-  <p class="focus-text">
-    <strong>Фокус курса — российский рынок и hh.ru.</strong> LinkedIn разбирается там, где это уместно — для тех, кто рассматривает международные или продуктовые компании.
-  </p>
+<!-- ══════════════════════════════════
+     SCREEN 1 — МОДУЛЬ 1
+══════════════════════════════════ -->
+<div class="screen" id="s1">
+
+  <div class="mod-divider">Модуль 1 <span>— Личный бренд: как ИИ упаковывает ваш опыт</span></div>
+
+  <div class="slides-wrap">
+
+    <!-- 1.1 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">1.1</span><span class="slide-title">Личный бренд — это не самопиар, а навигация</span></div>
+      <div class="slide-body">
+        <p>Когда рекрутёр открывает резюме или профиль, у него есть несколько секунд, чтобы решить, читать дальше или нет. Именно эти несколько секунд и называются «личным брендом»: не то, как красиво вы себя описали, а то, что считывается мгновенно — заголовок, навыки, цифры результатов.</p>
+        <p>Раньше это можно было компенсировать харизмой. В 2026 году это не работает — рекрутёры и алгоритмы ищут не красивые формулировки, а доказательства. Задача нейросети — не «продать» вас ярче, чем вы есть, а помочь точно сформулировать то, что у вас действительно есть.</p>
+      </div>
+    </div>
+
+    <!-- 1.2 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">1.2</span><span class="slide-title">Почему у рекрутёра действительно есть только секунды</span></div>
+      <div class="slide-body">
+        <p>Эта цифра не метафора, а следствие того, как физически устроен процесс отбора. На одну вакансию на hh.ru может прийти от нескольких десятков до нескольких сотен откликов, и рекрутёр читает их не «слева направо построчно», а по F-образной траектории взгляда: первая строка целиком, потом только начало нескольких следующих строк, потом скачок к самым заметным элементам — цифрам, выделенным словам, заголовкам блоков.</p>
+        <div class="tip-grid">
+          <div class="tip"><div class="tip-t">Следствие 1</div><div class="tip-d">Самое важное — должность, ключевой навык, главное достижение — должно быть в первых строках каждого блока, а не в конце.</div></div>
+          <div class="tip"><div class="tip-t">Следствие 2</div><div class="tip-d">Цифры и выделения работают как «крючки» для взгляда — поэтому формула «действие + цифра» работает не только по смыслу, но и чисто визуально.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.3 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">1.3</span><span class="slide-title">Как превратить обязанность в достижение</span></div>
+      <div class="slide-body">
+        <p>Главная ошибка в резюме — описывать должность, а не результат. Формула: <strong>действие + инструмент или масштаб + результат в цифрах.</strong></p>
+        <div class="vs-wrap">
+          <div class="vs-col">
+            <div class="vs-head bad">Слабо — обязанность</div>
+            <div class="vs-item">«Занимался привлечением клиентов»</div>
+            <div class="vs-item">«Вёл соцсети компании»</div>
+            <div class="vs-item">«Отвечал за аналитику»</div>
+          </div>
+          <div class="vs-col">
+            <div class="vs-head good">Сильно — достижение</div>
+            <div class="vs-item">«Привлёк 120 B2B-лидов за квартал, конверсия в сделку — 18%»</div>
+            <div class="vs-item">«Вырастил Instagram с 5К до 50К за 6 месяцев, +1,2 млн ₽ выручки»</div>
+            <div class="vs-item">«Внедрил дашборд в Power BI, сократил сбор отчёта с 3 часов до 15 минут»</div>
+          </div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-label">Промпт</div>
+          Ты — карьерный консультант. Переформулируй мои обязанности в достижения по формуле "действие + инструмент + результат в цифрах". Если данных для цифр не хватает — задай мне уточняющие вопросы, не выдумывай метрики.
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.4 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">1.4</span><span class="slide-title">Что делать, если цифр действительно нет</span></div>
+      <div class="slide-body">
+        <p>Частая реакция: «у меня нет цифр, я не считал». Это почти всегда не значит, что цифр нет — значит, их не искали в нужных местах. Прежде чем оставлять пункт описательным, проверьте четыре источника:</p>
+        <ul class="step-list">
+          <li><span class="step-n">1</span><span class="step-text"><strong>Косвенные расчёты.</strong> Если вы не считали ROI кампании, но знаете бюджет и результат продаж — посчитайте конверсию сами, это легитимно.</span></li>
+          <li><span class="step-n">2</span><span class="step-text"><strong>Масштаб вместо точной метрики.</strong> Не знаете точный процент роста — укажите масштаб: «база из 40+ клиентов», «команда из 8 человек», «проект на 3 месяца».</span></li>
+          <li><span class="step-n">3</span><span class="step-text"><strong>Сравнение «было/стало».</strong> Даже без точных цифр работает структура «было так, стало так» — это уже не обязанность, а изменение.</span></li>
+          <li><span class="step-n">4</span><span class="step-text"><strong>Подтверждение из переписки/отчётов.</strong> Часто нужная цифра есть в старой переписке с руководителем, в квартальном отчёте или в Google Analytics.</span></li>
+        </ul>
+        <div class="warn-box">Худший вариант — вписать случайную цифру «для вида»: это именно то, что Модуль 5 называет выдуманным фактом, и рано или поздно это всплывает на интервью.</div>
+      </div>
+    </div>
+
+    <!-- 1.5 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">1.5</span><span class="slide-title">Блок «О себе» как мини-интервью, а не как шаблон</span></div>
+      <div class="slide-body">
+        <p>Блок «О себе» и устный рассказ о себе — места, где большинство людей застревает. Здесь нейросеть окупается быстрее всего, но в режиме интервью, а не «напиши за меня».</p>
+        <p>Попросите ИИ задавать вопросы по одному и собирать из ответов связный текст — так получится живой результат без «воды» из шаблона. Для устного варианта подготовьте версии на 30 секунд и на 1 минуту. Задайте тон явно — «профессионально, но живо», без клише вроде «высокая мотивация к развитию».</p>
+        <div class="prompt-box">
+          <div class="prompt-label">Промпт</div>
+          Задай мне 7 вопросов по одному, чтобы собрать блок "О себе" для резюме на позицию [вакансия]. После ответов собери текст до 600 знаков в первом лице, живым языком.
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.6 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">1.6</span><span class="slide-title">Если навыка не хватает — закройте его курсом, а не фантазией</span></div>
+      <div class="slide-body">
+        <p>Когда вакансия требует навык, которого у вас нет, есть два пути: вписать его «на всякий случай» (рискованно) или закрыть пробел за 1–2 недели бесплатным или недорогим курсом с сертификатом (медленнее, но безопаснее).</p>
+        <p>Вес сертификата зависит от того, кто его выдал — документ от <strong>Яндекса, Сбера, ЦБ РФ или вуза</strong> воспринимается как знак качества, а сертификат с неизвестного сайта читается просто как картинка. Правильный порядок: сначала навык и небольшой проект, который его подтверждает, и только потом сертификат — как дополнительное подтверждение, а не замена результата.</p>
+        <span class="ed-tag inv">Развёрнутый список платформ — в бонус-блоке</span>
+      </div>
+    </div>
+
+    <!-- 1.7 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">1.7</span><span class="slide-title">Кейс: одно резюме целиком, до и после</span></div>
+      <div class="slide-body">
+        <p>Чтобы увидеть, как принципы модуля работают вместе, а не по отдельности — пример одного блока опыта целиком.</p>
+        <div class="case-box">
+          <div class="case-head">До</div>
+          <div class="case-body">«Менеджер проектов в IT-компании. Отвечал за ведение проектов, коммуникацию с клиентами, контроль сроков. Участвовал в нескольких крупных проектах. Имею опыт работы с Jira и Trello.»</div>
+        </div>
+        <div class="case-box">
+          <div class="case-head" style="background:#27ae60">После</div>
+          <div class="case-body">«Менеджер проектов, IT-аутсорсинг (12 человек в команде). Вёл одновременно 4 проекта на сумму 18 млн ₽, сократил среднее отставание от сроков с 25% до 6% за счёт еженедельных ретро в Jira. Удержал 100% клиентов на повторный контракт за 2026 год.»</div>
+        </div>
+        <p>Что изменилось: появился масштаб команды («12 человек»), деньги в управлении, конкретная метрика улучшения процесса (25% → 6%) и результат для бизнеса (удержание клиентов) — а не просто перечисление инструментов.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SCREEN 2 — МОДУЛЬ 2
+══════════════════════════════════ -->
+<div class="screen" id="s2">
+
+  <div class="mod-divider">Модуль 2 <span>— Резюме и профили: видимость на hh.ru и LinkedIn</span></div>
+
+  <div class="slides-wrap">
+
+    <!-- 2.1 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">2.1</span><span class="slide-title">Сначала вас читает алгоритм, а не человек</span></div>
+      <div class="slide-body">
+        <p>Прежде чем резюме увидит рекрутёр, его, как правило, сначала обрабатывает система — и это касается и hh.ru, и LinkedIn, просто механика немного отличается.</p>
+        <div class="fact-row">
+          <div class="fact-box"><div class="fact-big">hh.ru</div><div class="fact-small">Поиск по ключевым словам в базе резюме</div></div>
+          <div class="fact-box"><div class="fact-big">LinkedIn</div><div class="fact-small">ИИ-агент делает первый отбор до человека</div></div>
+        </div>
+        <p>Вывод один для обеих площадок: профиль должен быть полным и говорить на языке вакансии.</p>
+      </div>
+    </div>
+
+    <!-- 2.2 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">2.2</span><span class="slide-title">Как именно работает поиск рекрутёра на hh.ru</span></div>
+      <div class="slide-body">
+        <p>Стоит понимать механику чуть глубже, чем «вписывайте ключевые слова», потому что от этого зависит, какие слова выбирать.</p>
+        <ul class="step-list">
+          <li><span class="step-n">→</span><span class="step-text"><strong>Умный поиск понимает синонимы.</strong> Если рекрутёр ищет «директора», система покажет и тех, у кого «управляющий» или «руководитель» — но только для распространённых синонимов.</span></li>
+          <li><span class="step-n">→</span><span class="step-text"><strong>Большинство рекрутёров вводят 1–2 слова.</strong> Самое частотное и очевидное название вашей профессии должно быть в резюме обязательно, даже если кажется банальным.</span></li>
+          <li><span class="step-n">→</span><span class="step-text"><strong>Поиск можно ограничить конкретным полем.</strong> Навык, упомянутый только в «обязанностях», но не в «ключевых навыках», может не попасть в нужную выборку.</span></li>
+          <li><span class="step-n">→</span><span class="step-text"><strong>Систему «обучают» действия рекрутёра.</strong> Кого приглашают, какие резюме открывают — это меняет, кого система считает релевантным.</span></li>
+        </ul>
+        <div class="prompt-box">
+          <div class="prompt-label">Практический вывод</div>
+          Дублируйте ключевые навыки минимум в двух местах резюме — и в поле «Ключевые навыки», и внутри текста опыта.
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.3 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">2.3</span><span class="slide-title">Чек-лист сильного резюме на hh.ru</span></div>
+      <div class="slide-body">
+        <ul class="step-list">
+          <li><span class="step-n">1</span><span class="step-text"><strong>Заголовок резюме</strong> — пишите должность так, как её ищет рекрутёр.</span></li>
+          <li><span class="step-n">2</span><span class="step-text"><strong>Ключевые навыки</strong> — конкретные инструменты и технологии.</span></li>
+          <li><span class="step-n">3</span><span class="step-text"><strong>Опыт</strong> — 3–5 пунктов на место работы по формуле «достижение + цифра».</span></li>
+          <li><span class="step-n">4</span><span class="step-text"><strong>Заполненность профиля</strong> — фото, контакты, зарплата, готовность к выходу.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2.4 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">2.4</span><span class="slide-title">Зачем адаптировать резюме под каждую вакансию</span></div>
+      <div class="slide-body">
+        <p>Одно универсальное резюме на все вакансии снижает шансы сразу везде. ИИ убирает барьер: дайте нейросети текст вакансии и резюме и попросите найти, чего не хватает. Резюме с 20+ навыками подряд отсеивается чаще, чем резюме, где навыки естественно вплетены в опыт.</p>
+        <div class="prompt-box">
+          <div class="prompt-label">Промпт</div>
+          Вот вакансия и моё резюме. Составь таблицу: требование вакансии → есть/нет у меня → как усилить формулировку. Предложи ключевые слова, которых не хватает, и впиши их в опыт естественно.
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.5 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">2.5</span><span class="slide-title">LinkedIn для тех, кто смотрит на международные компании</span></div>
+      <div class="slide-body">
+        <p>LinkedIn в 2026 году — это актив, который сам притягивает предложения, если за ним следить. Профили со статусом «All-Star» получают входящие предложения в десятки раз чаще, чем неполные. В заголовке — ценность в формате «Что я решаю | Роль | Доказательство». Регулярная активность — сигнал экспертности.</p>
+      </div>
+    </div>
+
+    <!-- 2.6 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">2.6</span><span class="slide-title">Что на самом деле такое Hiring Assistant и Knowledge Graph</span></div>
+      <div class="slide-body">
+        <div class="tip-grid">
+          <div class="tip">
+            <div class="tip-t">Knowledge Graph</div>
+            <div class="tip-d">Способ хранить информацию не как текст, а как сеть связанных понятий. Профиль, навыки, публикации и активность связаны как узлы одной карты. Единая, непротиворечивая тема важнее количества активности.</div>
+          </div>
+          <div class="tip">
+            <div class="tip-t">Hiring Assistant</div>
+            <div class="tip-d">ИИ-агент LinkedIn, ориентированный на B2B-подбор. Смотрит не только на совпадение слов в навыках, но и на связность карьерной истории: логичны ли переходы между ролями.</div>
+          </div>
+        </div>
+        <div class="prompt-box" style="margin-top:10px">
+          <div class="prompt-label">Практический вывод</div>
+          На LinkedIn выигрывает не разносторонняя активность, а сфокусированная — несколько точных тем, которые подтверждают друг друга, работают лучше, чем десять разных.
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.7 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">2.7</span><span class="slide-title">Три незаметные ошибки, которые убивают видимость</span></div>
+      <div class="slide-body">
+        <p>Эти ошибки не вызывают явной «поломки» профиля — просто медленно снижают шансы быть найденным, и их редко замечают самостоятельно.</p>
+        <ul class="step-list">
+          <li><span class="step-n">!</span><span class="step-text"><strong>Несовпадение должности в заголовке и в тексте опыта.</strong> Если в заголовке «Аналитик данных», а в описании опыта — «специалист по работе с цифрами» — для поиска по полю это два разных понятия.</span></li>
+          <li><span class="step-n">!</span><span class="step-text"><strong>Слишком узкий диапазон желаемой зарплаты.</strong> Указание зарплаты заметно выше рынка автоматически отсекает вас из части поисковых фильтров рекрутёра.</span></li>
+          <li><span class="step-n">!</span><span class="step-text"><strong>Пустые или формальные разделы.</strong> Незаполненное образование, отсутствие города, скрытый раздел с навыками — каждый пустой блок система интерпретирует как сигнал более низкого качества профиля.</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SCREEN 3 — МОДУЛЬ 3
+══════════════════════════════════ -->
+<div class="screen" id="s3">
+
+  <div class="mod-divider">Модуль 3 <span>— Поиск вакансий и нетворкинг с ИИ</span></div>
+
+  <div class="slides-wrap">
+
+    <!-- 3.1 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">3.1</span><span class="slide-title">ИИ как фильтр вакансий, а не кнопка массовой рассылки</span></div>
+      <div class="slide-body">
+        <p>ИИ помогает разобрать вакансию: какие требования ключевые, что читается между строк, подходит ли роль. Массовая рассылка одинаковых откликов — проблема: 15 точечных откликов работают лучше 200 шаблонных.</p>
+      </div>
+    </div>
+
+    <!-- 3.2 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">3.2</span><span class="slide-title">Как читать вакансию «между строк»: разбор примера</span></div>
+      <div class="slide-body">
+        <div class="case-box">
+          <div class="case-head">Текст вакансии</div>
+          <div class="case-body">«Ищем проактивного аналитика, готового работать в условиях многозадачности и часто меняющихся приоритетов. Важна самостоятельность и умение быстро принимать решения без постоянного контроля.»</div>
+        </div>
+        <ul class="step-list">
+          <li><span class="step-n">→</span><span class="step-text">«Многозадачность и часто меняющиеся приоритеты» — почти всегда означает нестабильные процессы или быстрорастущую компанию без устоявшихся регламентов.</span></li>
+          <li><span class="step-n">→</span><span class="step-text">«Самостоятельность без постоянного контроля» — часто значит, что у вас не будет плотного менторства от руководителя в первые недели.</span></li>
+          <li><span class="step-n">→</span><span class="step-text">Отсутствие в тексте упоминания команды или коллег — стоит уточнить размер команды отдельно.</span></li>
+        </ul>
+        <div class="prompt-box">
+          <div class="prompt-label">Промпт</div>
+          Вот текст вакансии. Перечисли, что важные формулировки могут означать на практике (темп работы, уровень самостоятельности, зрелость процессов), и какие вопросы стоит задать на интервью.
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.3 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">3.3</span><span class="slide-title">Нетворкинг: ИИ собирает черновик, конкретику добавляете вы</span></div>
+      <div class="slide-body">
+        <p>Сообщение работает только тогда, когда в нём есть что-то конкретное. Хорошее сообщение строится по схеме: кто вы → почему пишете именно этому человеку → один конкретный факт о себе → короткий вопрос.</p>
+        <div class="prompt-box">
+          <div class="prompt-label">Промпт</div>
+          Напиши короткое сообщение рекрутёру компании [X] по вакансии [Y]. Один абзац, без клише, с упоминанием моего достижения: [факт]. Тон — уважительный, живой.
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.4 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">3.4</span><span class="slide-title">Три разных сценария нетворкинга, а не один общий</span></div>
+      <div class="slide-body">
+        <p>Схема с прошлого слайда работает по-разному в зависимости от ситуации — вот три типичных сценария и что в каждом важно сделать иначе.</p>
+        <ul class="step-list">
+          <li><span class="step-n">1</span><span class="step-text"><strong>Холодный контакт с рекрутёром по конкретной вакансии.</strong> Цель — получить ответ за один обмен сообщениями. Упор на релевантный факт и короткий явный вопрос («актуальна ли позиция?»).</span></li>
+          <li><span class="step-n">2</span><span class="step-text"><strong>Реферальная цепочка через знакомого.</strong> Здесь сообщение адресуется не рекрутёру, а вашему знакомому — его задача: дать конкретику, чтобы он мог честно порекомендовать вас. Явно напишите, что хотите — представление, резюме или разговор.</span></li>
+          <li><span class="step-n">3</span><span class="step-text"><strong>Сообщение в профильном Telegram-сообществе.</strong> Короткий публичный пост о себе и том, что вы ищете, без обращения к конкретному имени. Хорошо работает явное указание формата (удалённо/офис) и готовности к собеседованию.</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SCREEN 4 — МОДУЛЬ 4
+══════════════════════════════════ -->
+<div class="screen" id="s4">
+
+  <div class="mod-divider">Модуль 4 <span>— Подготовка к интервью: тренажёр на нейросетях</span></div>
+
+  <div class="slides-wrap">
+
+    <!-- 4.1 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">4.1</span><span class="slide-title">Почему именно ИИ закрывает пробел в подготовке</span></div>
+      <div class="slide-body">
+        <p>Главная сложность подготовки — отсутствие обратной связи. ИИ доступен в любой момент и может дать построчный разбор: что прозвучало слабо, где не хватило структуры, где появились слова-паразиты.</p>
+      </div>
+    </div>
+
+    <!-- 4.2 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">4.2</span><span class="slide-title">Почему именно STAR, а не просто «расскажите историю»</span></div>
+      <div class="slide-body">
+        <p>Метод STAR не случаен — он напрямую отражает то, как реальные интервьюеры оценивают ответы, а не просто удобная мнемоника.</p>
+        <p>Хороший STAR-ответ оценивается по конкретным критериям: в блоке «Ситуация/Задача» высший балл получает детальное описание с конкретными фактами, датами, цифрами, а не общая фраза без подробностей. Слабый ответ на интервью — это почти всегда не отсутствие подходящего опыта, а отсутствие конкретики в его пересказе.</p>
+        <p>Метод относится к интервью по компетенциям, потому что раскрывает особенности поведения человека в жизненных ситуациях и даёт понимание, как он будет действовать в аналогичных обстоятельствах на новой работе.</p>
+        <div class="prompt-box">
+          <div class="prompt-label">Практический вывод</div>
+          При подготовке историй проверяйте не только наличие всех четырёх блоков STAR, но и достаточно ли в каждом блоке именно фактов — кто, когда, сколько, — а не общих фраз вроде «было сложно, но я справился».
+        </div>
+      </div>
+    </div>
+
+    <!-- 4.3 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">4.3</span><span class="slide-title">Три режима тренировки по нарастающей сложности</span></div>
+      <div class="slide-body">
+        <ul class="step-list">
+          <li><span class="step-n">1</span><span class="step-text"><strong>Исследование компании.</strong> «Сделай бриф по компании [X]: культура, формат интервью, вероятные вопросы под вакансию [Y]».</span></li>
+          <li><span class="step-n">2</span><span class="step-text"><strong>Банк историй (STAR).</strong> 5–7 историй, попросите ИИ усилить каждую.</span></li>
+          <li><span class="step-n">3</span><span class="step-text"><strong>Полное мок-интервью.</strong> ИИ проводит собеседование из 4–6 вопросов с обратной связью, перебивает и уточняет.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4.4 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">4.4</span><span class="slide-title">Частая ошибка: комфортная тренировка вместо честной</span></div>
+      <div class="slide-body">
+        <p>Есть риск, о котором редко говорят: тренировка с ИИ может стать комфортной именно потому, что ИИ обычно вежливее и мягче, чем реальный интервьюер — и это снижает пользу тренировки, если не задать это явно.</p>
+        <div class="tip-grid">
+          <div class="tip"><div class="tip-t">Просите жёсткую ОС явно</div><div class="tip-d">По умолчанию многие модели смягчают критику. Стоит прямо написать: «не нужно подбадривать, укажи на все слабые места без смягчения».</div></div>
+          <div class="tip"><div class="tip-t">Просите перебивать</div><div class="tip-d">Настоящий интервьюер не ждёт идеально оформленного ответа, он может перебить на середине.</div></div>
+          <div class="tip"><div class="tip-t">Меняйте истории</div><div class="tip-d">Если вы просто повторяете заученный текст — вы тренируете память, а не способность отвечать на неожиданный поворот вопроса.</div></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-label">Промпт</div>
+          Проведи со мной мок-интервью на позицию [вакансия]. Перебивай меня уточняющими вопросами, если ответ кажется неполным. В конце дай жёсткую обратную связь без смягчения: что конкретно было слабым местом каждого ответа.
+        </div>
+      </div>
+    </div>
+
+    <!-- 4.5 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">4.5</span><span class="slide-title">Два кейса: чему учит реальный опыт тех, кто получил оффер</span></div>
+      <div class="slide-body">
+        <div class="case-box">
+          <div class="case-head">Кейс 1</div>
+          <div class="case-body">Кандидат загружал транскрипты своих реальных интервью в нейросеть и получал разбор ответов, которые ему самому казались удачными в моменте, — и именно там обнаруживались слабые места.</div>
+        </div>
+        <div class="case-box">
+          <div class="case-head">Кейс 2</div>
+          <div class="case-body">Другой кандидат, испытывавший сильную тревожность перед интервью настолько, что забывал ответы, которые точно знал, — прошёл несколько десятков тренировочных раундов в спокойной обстановке без давления. К финальному собеседованию ситуация перестала быть новой и пугающей, она стала просто «ещё одним тренировочным раундом».</div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-label">Суть метода в обоих случаях</div>
+          ИИ показывает разницу между «как я думаю, я ответил» и «как это прозвучало со стороны» — а во втором кейсе дополнительно снижает остроту самой ситуации через повторение.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SCREEN 5 — МОДУЛЬ 5
+══════════════════════════════════ -->
+<div class="screen" id="s5">
+
+  <div class="mod-divider">Модуль 5 <span>— Риски и этика: где ИИ становится опасен</span></div>
+
+  <div class="slides-wrap">
+
+    <!-- 5.1 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">5.1</span><span class="slide-title">Почему «идеальное» ИИ-резюме стало работать против кандидата</span></div>
+      <div class="slide-body">
+        <p>Российские рекрутёры устали от потока одинаковых «идеальных» резюме — рекрутёру становится сложнее разглядеть реальные навыки. У рекрутёров появился «ИИ-радар»: типичные обороты сгенерированного текста вызывают подозрение.</p>
+        <div class="prompt-box">
+          <div class="prompt-label">Вывод</div>
+          ИИ — для черновика, ваш голос — для финала.
+        </div>
+      </div>
+    </div>
+
+    <!-- 5.2 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">5.2</span><span class="slide-title">Как именно работает «ИИ-радар» рекрутёра</span></div>
+      <div class="slide-body">
+        <p>Стоит понимать механику на уровне принципа, без попыток её обойти, — потому что попытка обойти конкретный детектор обычно создаёт новую, столь же заметную проблему.</p>
+        <p>Рекрутёр, который читает десятки резюме в день, со временем подсознательно замечает статистические паттерны: избыточно гладкие, симметричные по структуре предложения; одинаковый набор «универсальных» слов про результаты; отсутствие мелких неровностей, которые есть в естественной речи живого человека о своём опыте. Это не строгий алгоритм, а накопленная интуиция опытного читателя.</p>
+        <div class="prompt-box">
+          <div class="prompt-label">Практический вывод</div>
+          Финальную правку должен делать человек, а не нейросеть — это автоматически убирает избыточную гладкость, потому что живой автор пишет немного неровно, с акцентом на то, что важно именно ему.
+        </div>
+      </div>
+    </div>
+
+    <!-- 5.3 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">5.3</span><span class="slide-title">Три красные линии, которые не стоит пересекать</span></div>
+      <div class="slide-body">
+        <ul class="step-list">
+          <li><span class="step-n">!</span><span class="step-text"><strong>Выдуманные факты.</strong> Несостыковки (5 лет опыта в 22 года; 3 проекта в резюме против 1 на GitHub) ловятся на первом интервью.</span></li>
+          <li><span class="step-n">!</span><span class="step-text"><strong>«Пустые» сертификаты.</strong> Десяток документов с неизвестных сайтов вызывает вопросы, а не усиливает резюме.</span></li>
+          <li><span class="step-n">!</span><span class="step-text"><strong>Персональные данные.</strong> Убирайте телефон, адрес и паспортные данные при загрузке резюме в нейросеть — требование 152-ФЗ.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5.4 -->
+    <div class="slide-card">
+      <div class="slide-head"><span class="slide-kicker">5.4 / Финал</span><span class="slide-title">Главный принцип курса</span></div>
+      <div class="slide-body">
+        <div class="principle">
+          <div class="principle-title">Главный принцип</div>
+          <div class="principle-body">ИИ усиливает реальную компетентность и одновременно обнажает её отсутствие. Выигрывает не тот, у кого лучше промпты, а тот, у кого есть, что упаковывать.</div>
+          <ul class="principle-pts">
+            <li>Используйте нейросети, чтобы быстрее и точнее показать то, что вы реально умеете.</li>
+            <li>Не используйте их, чтобы создать видимость компетентности, которой нет.</li>
+            <li>В 2026 году проверка кандидатов стала жёстче, но и честнее: выигрывают доказательства.</li>
+          </ul>
+        </div>
+        <p style="margin-top:10px;font-size:12px;color:#555">Курс прошёл по логике пути кандидата: упаковка → видимость → подготовка → граница. Дальше — тесты по каждому модулю и бонус-материалы с инструментами, промптами и платформами сертификатов.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SCREEN 6 — ТЕСТЫ
+══════════════════════════════════ -->
+<div class="screen" id="s6">
+  <div class="quiz-wrap">
+
+    <div class="quiz-score" id="scoreCard">
+      <div class="score-num" id="scoreNum">0/10</div>
+      <div class="score-label">Правильных ответов</div>
+      <div class="score-msg" id="scoreMsg"></div>
+      <button class="reset-btn" onclick="resetQ()">↺ Пройти заново</button>
+    </div>
+
+    <div class="progress-bar"><div class="progress-fill" id="pFill" style="width:0%"></div></div>
+
+    <!-- M1 Q1 -->
+    <div class="quiz-card" id="q1">
+      <div class="quiz-head"><span>Вопрос 1 / 10</span><span>Модуль 1 — Личный бренд</span></div>
+      <div class="quiz-q">Что такое «личный бренд» в контексте поиска работы в 2026 году?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'wrong','q1')"><span class="opt-letter">А</span><span class="opt-text">Красиво оформленная страница с фото и описанием достижений</span></div>
+        <div class="opt" onclick="ans(this,'correct','q1')"><span class="opt-letter">Б</span><span class="opt-text">То, что считывается рекрутёром за несколько секунд: заголовок, навыки, цифры результатов</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q1')"><span class="opt-letter">В</span><span class="opt-text">Количество подписчиков в профессиональных социальных сетях</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q1')"><span class="opt-letter">Г</span><span class="opt-text">Репутация в профессиональном сообществе, сформированная годами</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q1">Личный бренд — это не самопиар, а навигация: то, что считывается мгновенно — заголовок, навыки, цифры результатов. Рекрутёры и алгоритмы ищут не красивые формулировки, а доказательства.</div>
+    </div>
+
+    <!-- M1 Q2 -->
+    <div class="quiz-card" id="q2">
+      <div class="quiz-head"><span>Вопрос 2 / 10</span><span>Модуль 1 — Личный бренд</span></div>
+      <div class="quiz-q">Какая формулировка в резюме является «достижением», а не «обязанностью»?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'wrong','q2')"><span class="opt-letter">А</span><span class="opt-text">«Отвечал за аналитику в отделе маркетинга»</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q2')"><span class="opt-letter">Б</span><span class="opt-text">«Работал с системами бизнес-аналитики»</span></div>
+        <div class="opt" onclick="ans(this,'correct','q2')"><span class="opt-letter">В</span><span class="opt-text">«Внедрил дашборд в Power BI, сократил время сбора отчёта с 3 часов до 15 минут»</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q2')"><span class="opt-letter">Г</span><span class="opt-text">«Занимался улучшением процессов аналитики и отчётности»</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q2">Формула достижения: действие + инструмент или масштаб + результат в цифрах. Только вариант В содержит все три элемента и показывает конкретный измеримый результат.</div>
+    </div>
+
+    <!-- M1 Q3 -->
+    <div class="quiz-card" id="q3">
+      <div class="quiz-head"><span>Вопрос 3 / 10</span><span>Модуль 1 — Личный бренд</span></div>
+      <div class="quiz-q">Кандидат говорит: «У меня нет цифр, я не считал». Что следует сделать в первую очередь?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'wrong','q3')"><span class="opt-letter">А</span><span class="opt-text">Вписать приблизительную цифру, которая звучит правдоподобно</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q3')"><span class="opt-letter">Б</span><span class="opt-text">Оставить пункт описательным — это честнее, чем придумывать</span></div>
+        <div class="opt" onclick="ans(this,'correct','q3')"><span class="opt-letter">В</span><span class="opt-text">Проверить косвенные расчёты, переписку, отчёты и попробовать сравнение «было/стало»</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q3')"><span class="opt-letter">Г</span><span class="opt-text">Попросить ИИ самостоятельно придумать подходящие метрики</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q3">«У меня нет цифр» почти всегда не значит, что цифр нет — значит, их не искали в нужных местах. Нужно проверить четыре источника: косвенные расчёты, масштаб вместо точной метрики, сравнение «было/стало», переписку и отчёты. Худший вариант — вписать случайную цифру «для вида».</div>
+    </div>
+
+    <!-- M2 Q4 -->
+    <div class="quiz-card" id="q4">
+      <div class="quiz-head"><span>Вопрос 4 / 10</span><span>Модуль 2 — Видимость</span></div>
+      <div class="quiz-q">Почему ключевые навыки стоит дублировать в двух местах резюме на hh.ru?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'wrong','q4')"><span class="opt-letter">А</span><span class="opt-text">Чтобы резюме выглядело более объёмным и профессиональным</span></div>
+        <div class="opt" onclick="ans(this,'correct','q4')"><span class="opt-letter">Б</span><span class="opt-text">Рекрутёр может искать по конкретному полю, и навык из «обязанностей» может не попасть в нужную выборку</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q4')"><span class="opt-letter">В</span><span class="opt-text">Алгоритм hh.ru суммирует количество упоминаний и ранжирует по ним</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q4')"><span class="opt-letter">Г</span><span class="opt-text">Это официальное требование платформы для повышения скоринга</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q4">Рекрутёры умеют искать слово именно в заголовке резюме, именно в навыках или именно в опыте отдельно. Один и тот же навык, упомянутый только в «обязанностях», но не в «ключевых навыках», может не попасть в нужную выборку.</div>
+    </div>
+
+    <!-- M2 Q5 -->
+    <div class="quiz-card" id="q5">
+      <div class="quiz-head"><span>Вопрос 5 / 10</span><span>Модуль 2 — Видимость</span></div>
+      <div class="quiz-q">Что такое Knowledge Graph в контексте LinkedIn в 2026 году?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'wrong','q5')"><span class="opt-letter">А</span><span class="opt-text">График, показывающий динамику просмотров вашего профиля</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q5')"><span class="opt-letter">Б</span><span class="opt-text">Инструмент для визуализации профессиональных связей между контактами</span></div>
+        <div class="opt" onclick="ans(this,'correct','q5')"><span class="opt-letter">В</span><span class="opt-text">Способ хранить информацию как сеть связанных понятий: профиль, навыки, публикации и активность связаны как узлы одной карты</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q5')"><span class="opt-letter">Г</span><span class="opt-text">База данных рекрутёров, использующих LinkedIn для подбора</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q5">Knowledge Graph хранит информацию не как текст, а как сеть связанных понятий. Если контент профиля не соответствует заявленной экспертизе, система видит несоответствие и ограничивает охват. Единая, непротиворечивая тема важнее количества активности.</div>
+    </div>
+
+    <!-- M3 Q6 -->
+    <div class="quiz-card" id="q6">
+      <div class="quiz-head"><span>Вопрос 6 / 10</span><span>Модуль 3 — Поиск и нетворкинг</span></div>
+      <div class="quiz-q">Что означает фраза «многозадачность и часто меняющиеся приоритеты» в тексте вакансии?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'wrong','q6')"><span class="opt-letter">А</span><span class="opt-text">Компания ищет кандидата с широким спектром навыков и гибким мышлением</span></div>
+        <div class="opt" onclick="ans(this,'correct','q6')"><span class="opt-letter">Б</span><span class="opt-text">Почти всегда — нестабильные процессы или быстрорастущая компания без устоявшихся регламентов</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q6')"><span class="opt-letter">В</span><span class="opt-text">Работа в международной команде с разными часовыми поясами</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q6')"><span class="opt-letter">Г</span><span class="opt-text">Стандартная формулировка без скрытого смысла, присутствующая в большинстве вакансий</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q6">«Многозадачность и часто меняющиеся приоритеты» почти всегда означает нестабильные процессы или быстрорастущую компанию без устоявшихся регламентов. Это не плохо и не хорошо само по себе, но стоит спросить об этом на интервью, если для вас критична предсказуемость.</div>
+    </div>
+
+    <!-- M4 Q7 -->
+    <div class="quiz-card" id="q7">
+      <div class="quiz-head"><span>Вопрос 7 / 10</span><span>Модуль 4 — Подготовка к интервью</span></div>
+      <div class="quiz-q">Почему метод STAR используется на поведенческих интервью, а не просто «расскажите историю»?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'wrong','q7')"><span class="opt-letter">А</span><span class="opt-text">Потому что он ускоряет ответ и позволяет уложиться в 2 минуты</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q7')"><span class="opt-letter">Б</span><span class="opt-text">Это стандарт HR-отрасли, принятый международными компаниями</span></div>
+        <div class="opt" onclick="ans(this,'correct','q7')"><span class="opt-letter">В</span><span class="opt-text">Он напрямую отражает то, как интервьюеры оценивают ответы, и раскрывает поведение кандидата для предсказания будущей работы</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q7')"><span class="opt-letter">Г</span><span class="opt-text">Он помогает кандидату запомнить все важные факты перед ответом</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q7">Метод STAR не случаен — он напрямую отражает критерии оценки ответов интервьюером. Интервьюера интересует не сам факт «успешного проекта», а то, что ваше поведение в нём предсказывает про вашу будущую работу в его команде. Слабый ответ — это почти всегда не отсутствие опыта, а отсутствие конкретики.</div>
+    </div>
+
+    <!-- M4 Q8 -->
+    <div class="quiz-card" id="q8">
+      <div class="quiz-head"><span>Вопрос 8 / 10</span><span>Модуль 4 — Подготовка к интервью</span></div>
+      <div class="quiz-q">Почему тренировка с ИИ может быть менее полезной, если не задать специальные условия?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'correct','q8')"><span class="opt-letter">А</span><span class="opt-text">ИИ обычно вежливее и мягче, чем реальный интервьюер, и смягчает критику по умолчанию</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q8')"><span class="opt-letter">Б</span><span class="opt-text">ИИ задаёт одни и те же вопросы, не адаптируясь к конкретной вакансии</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q8')"><span class="opt-letter">В</span><span class="opt-text">ИИ не может оценить невербальное поведение и тон голоса</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q8')"><span class="opt-letter">Г</span><span class="opt-text">ИИ слишком быстро даёт правильные ответы, не давая кандидату подумать</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q8">Тренировка с ИИ может стать комфортной именно потому, что ИИ обычно вежливее и мягче, чем реальный интервьюер — и это снижает пользу тренировки. Нужно явно просить жёсткую обратную связь без смягчения и просить перебивать уточняющими вопросами.</div>
+    </div>
+
+    <!-- M5 Q9 -->
+    <div class="quiz-card" id="q9">
+      <div class="quiz-head"><span>Вопрос 9 / 10</span><span>Модуль 5 — Риски и этика</span></div>
+      <div class="quiz-q">Как работает «ИИ-радар» рекрутёра — что именно он замечает?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'wrong','q9')"><span class="opt-letter">А</span><span class="opt-text">Специальный алгоритм сравнивает текст с базой ИИ-сгенерированных фрагментов</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q9')"><span class="opt-letter">Б</span><span class="opt-text">Рекрутёр проверяет метаданные файла резюме на предмет использования ИИ</span></div>
+        <div class="opt" onclick="ans(this,'correct','q9')"><span class="opt-letter">В</span><span class="opt-text">Накопленная интуиция: избыточно гладкие предложения, одинаковые «универсальные» слова, отсутствие мелких неровностей живой речи</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q9')"><span class="opt-letter">Г</span><span class="opt-text">Несоответствие стиля резюме стилю ответов на собеседовании</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q9">«ИИ-радар» — это не строгий алгоритм, а накопленная интуиция опытного читателя. Рекрутёр, читающий десятки резюме в день, замечает паттерны: избыточно гладкие предложения, одинаковый набор «универсальных» слов, отсутствие мелких неровностей живой речи. Это же самое, что опытный редактор замечает в «машинном» переводе.</div>
+    </div>
+
+    <!-- M5 Q10 -->
+    <div class="quiz-card" id="q10">
+      <div class="quiz-head"><span>Вопрос 10 / 10</span><span>Модуль 5 — Риски и этика</span></div>
+      <div class="quiz-q">Какое из перечисленных действий является «красной линией» при использовании ИИ в поиске работы?</div>
+      <div class="quiz-opts">
+        <div class="opt" onclick="ans(this,'wrong','q10')"><span class="opt-letter">А</span><span class="opt-text">Использовать ИИ для генерации черновика блока «О себе» и затем переписать его своими словами</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q10')"><span class="opt-letter">Б</span><span class="opt-text">Попросить ИИ найти ключевые слова из вакансии и добавить их в резюме</span></div>
+        <div class="opt" onclick="ans(this,'correct','q10')"><span class="opt-letter">В</span><span class="opt-text">Загрузить резюме с полным именем, телефоном и адресом в публичный ИИ-сервис для редактирования</span></div>
+        <div class="opt" onclick="ans(this,'wrong','q10')"><span class="opt-letter">Г</span><span class="opt-text">Провести мок-интервью с ИИ и записать транскрипт для разбора слабых мест</span></div>
+      </div>
+      <div class="quiz-exp" id="exp-q10">Загрузка резюме с персональными данными в нейросеть — нарушение требований 152-ФЗ о персональных данных. Перед использованием ИИ-сервисов нужно убирать телефон, точный адрес и паспортные данные из резюме. Остальные варианты — легитимное и полезное использование ИИ.</div>
+    </div>
+
+  </div>
 </div>
 
 <script>
-  function toggle(item) {
-    const isOpen = item.classList.contains('open');
-    // Закрыть все открытые
-    document.querySelectorAll('.acc-item.open').forEach(el => el.classList.remove('open'));
-    // Открыть кликнутый (если он не был открыт)
-    if (!isOpen) item.classList.add('open');
-  }
+var answered={};var correct=0;var total=10;
+function go(n){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
+  document.getElementById('s'+n).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(function(b,i){b.classList.toggle('active',i===n)});
+  if(n===0)setTimeout(revealNums,200);
+}
+function togAcc(el){
+  var open=el.classList.contains('open');
+  document.querySelectorAll('.acc').forEach(function(a){a.classList.remove('open')});
+  if(!open)el.classList.add('open');
+}
+function ans(opt,type,qid){
+  if(answered[qid])return;
+  answered[qid]=type;
+  opt.closest('.quiz-opts').querySelectorAll('.opt').forEach(function(o){o.style.pointerEvents='none'});
+  opt.classList.add(type);
+  var exp=document.getElementById('exp-'+qid);
+  if(exp)exp.classList.add('show');
+  if(type==='correct')correct++;
+  var done=Object.keys(answered).length;
+  document.getElementById('pFill').style.width=(done/total*100)+'%';
+  if(done===total)showScore();
+}
+function showScore(){
+  var sc=document.getElementById('scoreCard');
+  sc.classList.add('show');
+  document.getElementById('scoreNum').textContent=correct+'/'+total;
+  var msgs=[
+    'Рекомендуем перечитать курс и попробовать снова.',
+    'Неплохой результат! Закрепите модули, где были ошибки.',
+    'Хорошо! Вы усвоили основные принципы курса.',
+    'Отлично! Вы готовы применять нейросети в поиске работы.'
+  ];
+  var i=correct<5?0:correct<7?1:correct<9?2:3;
+  document.getElementById('scoreMsg').textContent=msgs[i];
+  sc.scrollIntoView({behavior:'smooth'});
+}
+function resetQ(){
+  answered={};correct=0;
+  document.getElementById('scoreCard').classList.remove('show');
+  document.getElementById('pFill').style.width='0%';
+  document.querySelectorAll('.opt').forEach(function(o){o.classList.remove('correct','wrong');o.style.pointerEvents='';});
+  document.querySelectorAll('.quiz-exp').forEach(function(e){e.classList.remove('show')});
+}
+function revealNums(){
+  document.querySelectorAll('.big-num').forEach(function(n){n.classList.add('revealed')});
+}
+setTimeout(revealNums,300);
 </script>
-
 </body>
 </html>
